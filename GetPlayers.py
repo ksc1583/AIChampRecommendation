@@ -1,7 +1,7 @@
 import requests
 import json
 
-api_keys = "RGAPI-8f915ee5-1cad-48e4-bbff-c4932cbd4998"
+api_keys = ""
 
 tier = "CHALLENGER"
 page = "2"
@@ -14,5 +14,5 @@ if response.status_code == 200:
     player_list = response.json()
     print(len(player_list))
     print(player_list)
-    with open('./'+ tier +'_data'+page+'.json', 'w') as f:
+    with open('./players/'+ tier +'_data'+page+'.json', 'w') as f:
         json.dump(player_list, f, ensure_ascii=False, indent=4)
