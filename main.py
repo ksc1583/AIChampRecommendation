@@ -1,13 +1,16 @@
 import requests
 import json
 
-api_keys = "RGAPI-8f915ee5-1cad-48e4-bbff-c4932cbd4998"
-request_url_puuid = 'https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
 
+with open('./players/match.json', 'r') as f: #puuid 불러오기
+    match = json.load(f)
 
-def get_puuid(player_name):   #get player puuid for
-    response_data = requests.get(request_url_puuid + player_name, headers={'X-Riot-Token': api_keys})
-    print(response_data.json())
+print(len(match))
+match_list = list(set(match))
+print(len(match_list))
+
+with open('./players/match_list.json', 'w') as f:    #puuid 저장
+    json.dump(match_list, f, ensure_ascii=False, indent=4)
 
 
     #for i in range(len(response.json())):
