@@ -1,0 +1,9 @@
+import json
+import numpy
+import numpy as np
+
+with open('./players/input_list_ohe.json', 'r') as f: #mat 불러오기
+    ohe = json.load(f)
+
+a = np.array(ohe[0], dtype=object)
+print(a.shape)
