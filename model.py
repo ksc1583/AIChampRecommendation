@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+
 from keras.utils import np_utils
 from keras.models import Sequential
 from keras.layers import Dense, Activation
@@ -36,39 +37,6 @@ class BaseModel(ABC):
 # games=145358, options=(BR_Mode, 2, 128, 0.2): 0.5427/0.5330
 # games=145358, options=(BR_Mode, 2, 256, 0.3): 0.5420/0.5332
 # games=145358, options=(BR_Mode, 2, 512, 0.5): 0.5405/0.5312
-# games=145358, options=(BR_Mode, 3, 128, 0.2): 0.5407/0.5336
-# games=145358, options=(BR_Mode, 3, 256, 0.3): 0.5426/0.5333
-# games=145358, options=(BR_Mode, 4, 256, 0.3): 0.5410/0.5323
-# games=145358, options=(BR_Mode, 5, 128, 0.3): 0.5354/0.5319
-# games=148883, options=(ABOTJMCS_Mode, 3, 512, 0.2): 0.5283/0.5265
-# games=148883, options=(ABOTJMCS_Mode, 3, 1024, 0.3): 0.5274/0.5257
-class DenseUniform(BaseModel):
-    def __init__(self, mode, n_hidden_layers, NN, dropout, batch_size=1000, report=10):
-        super().__init__(mode)
-        self.n_hidden_layers = n_hidden_layers
-        self.NN = NN
-        self.dropout = dropout
-        self.model = None
-        self.batch_size = batch_size  # The higher the better, but need more gpu memory
-        self.report = report  # In order to not be overflowed by training/testing logs
-
-    def build(self):
-
-        self.model = keras.models.Sequential()
-        self.model.add(keras.layers.Dense(units=self.NN, input_dim=self.mode.INPUT_SIZE, activation='relu'))
-        self.model.add(keras.layers.Dropout(self.dropout))
-        for _ in range(self.n_hidden_layers):  # hidden layers
-            self.model.add(keras.layers.Dense(units=self.NN, activation='relu'))
-            self.model.add(keras.layers.Dropout(self.dropout))
-        self.model.add(keras.layers.Dense(units=1, activation='sigmoid'))  # reading output
-        self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-
-    def __repr__(self):
-        return 'DenseUniform(*{!r})'.format(self.mode, self.n_hidden_layers, self.NN)
-
-    def __str__(self):
-        # used to name model folder
-        return '{!s}_DenseUniform_{}_{}'.format(self.mode, self.n_hidden_layers, self.NN)
 
 
 # Training/Testing accuracy:
@@ -92,7 +60,7 @@ class DenseDegressive(BaseModel):
     def build(self):
 
         self.model = keras.models.Sequential()
-        self.model.add(keras.layers.Dense(units=self.NN, input_shape=(11,), activation='relu'))
+        self.model.add(keras.layers.Dense(units=self.NN, input_shape=(10,), activation='relu'))
         self.model.add(keras.layers.Dropout(self.dropout))
         for k in range(self.n_hidden_layers):  # hidden layers
             units = self.NN // (2**(k+1))
@@ -104,17 +72,33 @@ class DenseDegressive(BaseModel):
         # return self.model
 
 #importing Categorical data
-dataset=pd.read_json('./players/input_list.json')
-X=dataset.iloc[:,:].values
-y=dataset.iloc[:,10].values
 
+dataset1=pd.read_json('./players/input_list_ohe.json')
+#print(dataset1)
+X=dataset1.iloc[:,0:10].values
+y=dataset1.iloc[:,10].values
+
+#X=dataset.drop(10,axis=1).values
+#y=dataset[10].values
+#X=dataset.iloc[:,0:10].values
+#y=dataset.iloc[:,10].values
+
+
+#print(X)
+#print(y)
+X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.3, random_state=1)
+
+
+#print("hi")
+#X=dataset.iloc[:,:].values
+#y=dataset.iloc[:,10].values
 
 #spitting the dataset into the Training set and Test set
 #X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.3, random_state=1)
 
 #train test validation 사용할때
-X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.5, random_state=1)
-X_val, X_test, y_val, y_test=train_test_split(X, y, test_size=0.4, random_state=1)
+#X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.5, random_state=1)
+#X_val, X_test, y_val, y_test=train_test_split(X, y, test_size=0.4, random_state=1)
 
 #Feature scaling 정규화
 sc=StandardScaler()
@@ -124,33 +108,36 @@ X_test=sc.transform(X_test)
 
 
 
-n = DenseDegressive(Xlist=X_train, ylist=y_train, n_hidden_layers=5, NN=1024, dropout=0.2, batch_size=1000, epochs=4)
+n = DenseDegressive(Xlist=X_train, ylist=y_train, n_hidden_layers=5, NN=1024, dropout=0.2, batch_size=1000, epochs=10)
 result=n.build()
-#print(result)
-#n.model.summary()
-#history = n.model.fit(X_train, y_train, batch_size=1000, epochs=4)
+print(result)
+n.model.summary()
+
+
+history = n.model.fit(X_train, y_train, batch_size=1000, epochs=10)
 
 
 #train test validation 사용할때 수정필요
-history = n.model.fit(X_train, y_train, epochs=4, batch_size=1000, validation_data=(X_val, y_val))
+#history = n.model.fit(X_train, y_train, epochs=4, batch_size=1000, validation_data=(X_val, y_val))
 
 # predict 10 random game data
 y_predicted = n.model.predict(X_test)
 
-#for X in range(0, 10):
-#    random_index = random.randint(0, X_test.shape[0]-1)
-#    print("index: ", random_index,
-#          "actual y: ", y_test[random_index],
-#          "predicted y: ", int(np.around(y_predicted[random_index])))
+for X in range(0, 20):
+    random_index = random.randint(0, X_test.shape[0]-1)
+    print("index: ", random_index,
+          "actual y: ", y_test[random_index],
+          "predicted y: ", y_predicted[random_index])
 
 # evaluate test set
-#evaluation = n.model.evaluate(X_test, y_test)
+evaluation = n.model.evaluate(X_test, y_test)
 
-#print('loss: ', evaluation[0])
-#print('accuracy', evaluation[1])
+print('loss: ', evaluation[0])
+print('accuracy', evaluation[1])
 
 #출력값
 
-position=input("원하는 포지션을 입력하세요 : ")
-if position=="탑":
-    champion2,champion3,champion4,champion5=input("미들 정글 서폿 원딜순으로 챔피언을 입려하세요")
+#position=input("원하는 포지션을 입력하세요 : ")
+#if position=="탑":
+#    champion2,champion3,champion4,champion5=input("미들 정글 서폿 원딜순으로 챔피언을 입려하세요")
+#print("hi")

@@ -25,12 +25,12 @@ for i in input_list:
             if shuffle_list[j*2] == int(champ_list[k]["key"]):
                 champ[k] = 1
                 break
-        shuffle_list[j*2] = champ
+        shuffle_list[j*2]=champ
 
     for j in range(5):
         lane = [0 for t in range(6)]
         lane[shuffle_list[j*2 + 1]] = 1
-        shuffle_list[j*2 + 1] = lane
+        shuffle_list[j*2 + 1]=lane
 
     shuffle_list.append(i[-1])
     input_list_ohe.append(shuffle_list)

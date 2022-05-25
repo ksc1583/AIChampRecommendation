@@ -19,12 +19,15 @@ from keras.utils import to_categorical
 
 
 Championset=pd.read_json('./players/input_list_ohe.json')
+X=Championset.iloc[:,0].values
+print(len(X))
+
 inputlist=[0]*5
 print(inputlist)
 position=input("원하는 포지션을 입력하세요 : ")
 if position=="탑":
     a=input("미드 정글 서폿 원딜순으로 챔피언을 입려하세요 : ").split()
-    enconded=tokenizer.te
+    
 elif position=="미드":
     champion1,champion3,champion4,champion5=input("탑 정글 서폿 원딜순으로 챔피언을 입려하세요 : ").split()
     print( champion1, champion3, champion4, champion5) 
