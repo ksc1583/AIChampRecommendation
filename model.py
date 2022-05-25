@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import input_onehot
 
 from keras.utils import np_utils
 from keras.models import Sequential
@@ -60,7 +61,7 @@ class DenseDegressive(BaseModel):
     def build(self):
 
         self.model = keras.models.Sequential()
-        self.model.add(keras.layers.Dense(units=self.NN, input_shape=(10,), activation='relu'))
+        self.model.add(keras.layers.Dense(units=self.NN, input_shape=(5,), activation='relu'))
         self.model.add(keras.layers.Dropout(self.dropout))
         for k in range(self.n_hidden_layers):  # hidden layers
             units = self.NN // (2**(k+1))
@@ -68,16 +69,31 @@ class DenseDegressive(BaseModel):
             self.model.add(keras.layers.Dropout(self.dropout))
         self.model.add(keras.layers.Dense(units=1, activation='sigmoid'))  # reading output
         self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-
+        #self.model.fit(self.Xlist, self.ylist, self.batach_size, self.epochs)
         # return self.model
 
 #importing Categorical data
 
-dataset1=pd.read_json('./players/input_list_ohe.json')
-#print(dataset1)
-X=dataset1.iloc[:,0:10].values
-y=dataset1.iloc[:,10].values
+#dataset1=pd.read_json('./input_ohe_df.json', orient='table')
+#print(dataset1)_
 
+dataset=input_onehot.q()
+#print(dataset.info())
+#dataset = dataset1.astype(float)
+X=dataset[:,0:5]
+y=dataset[:,5]
+
+
+# X=dataset.iloc[:,0:10].values
+# X=np.asarray(X).astype(np.float32)
+# X1=dataset[:,0:10]
+# y=dataset.iloc[:,10].values
+# y=np.asarray(y).astype(np.float32)
+# y1=dataset.iloc[:,10]
+print(X)
+
+#print(X)
+#print(y)
 #X=dataset.drop(10,axis=1).values
 #y=dataset[10].values
 #X=dataset.iloc[:,0:10].values
@@ -101,20 +117,20 @@ X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.3, random_st
 #X_val, X_test, y_val, y_test=train_test_split(X, y, test_size=0.4, random_state=1)
 
 #Feature scaling 정규화
-sc=StandardScaler()
-X_train=sc.fit_transform(X_train)
-X_test=sc.transform(X_test)
+#sc=StandardScaler()
+#X_train=sc.fit_transform(X_train)
+#X_test=sc.transform(X_test)
 #X_val=sc.transform(X_val)
-
-
 
 n = DenseDegressive(Xlist=X_train, ylist=y_train, n_hidden_layers=5, NN=1024, dropout=0.2, batch_size=1000, epochs=10)
 result=n.build()
 print(result)
 n.model.summary()
 
+# X_train = np.asarray(X_train).astype(np.float32)
+# y_train = np.asarray(y_train).astype(np.float32)
 
-history = n.model.fit(X_train, y_train, batch_size=1000, epochs=10)
+history=n.model.fit(X_train, y_train, batch_size=1000, epochs=10)
 
 
 #train test validation 사용할때 수정필요
