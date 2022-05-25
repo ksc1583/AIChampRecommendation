@@ -72,7 +72,7 @@ class DenseDegressive(BaseModel):
         #self.model.fit(self.Xlist, self.ylist, self.batach_size, self.epochs)
         # return self.model
     def save(self):
-        self.model.save('lol_model')
+        self.model.save('lol_model.h5')
 
 #importing Categorical data
 

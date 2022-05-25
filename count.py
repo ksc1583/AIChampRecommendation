@@ -29,7 +29,7 @@ X5=dataset.iloc[:,8].values
 #y=dataset[:,159]
 print(X1[0],X2[0])
 y=[]
-for i in len(X1):
-   y[i]=X1[i]*X2[i]*X3[i]*X4[i]*X5[i]
-
-print(y)   
+for i in range(len(X1)):
+   y.append(X1[i]*X2[i]*X3[i]*X4[i]*X5[i])
+print(type(y[0]))
+print(len(set(y)))
