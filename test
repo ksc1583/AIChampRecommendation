@@ -7,3 +7,10 @@ with open('./players/input_list_ohe.json', 'r') as f: #mat 불러오기
 
 a = np.array(ohe[0], dtype=object)
 print(a.shape)
+print(a)
+b= ohe[1]
+
+b = np.array(b, dtype=object)
+for i in range(10):
+    b[i] = np.array(b[i], dtype=object)
+
