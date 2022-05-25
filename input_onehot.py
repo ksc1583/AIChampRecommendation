@@ -32,7 +32,6 @@ def q():
     print(a.shape)
     return a
 
-b = q()
 
 
 # with open('./players/input_list_ohe_np.json', 'w') as f:    #match 저장

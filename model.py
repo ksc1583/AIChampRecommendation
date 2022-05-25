@@ -61,7 +61,7 @@ class DenseDegressive(BaseModel):
     def build(self):
 
         self.model = keras.models.Sequential()
-        self.model.add(keras.layers.Dense(units=self.NN, input_shape=(5,), activation='relu'))
+        self.model.add(keras.layers.Dense(units=self.NN, input_shape=(159,), activation='relu'))
         self.model.add(keras.layers.Dropout(self.dropout))
         for k in range(self.n_hidden_layers):  # hidden layers
             units = self.NN // (2**(k+1))
@@ -71,6 +71,8 @@ class DenseDegressive(BaseModel):
         self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
         #self.model.fit(self.Xlist, self.ylist, self.batach_size, self.epochs)
         # return self.model
+    def save(self):
+        self.model.save('lol_model')
 
 #importing Categorical data
 
@@ -80,8 +82,8 @@ class DenseDegressive(BaseModel):
 dataset=input_onehot.q()
 #print(dataset.info())
 #dataset = dataset1.astype(float)
-X=dataset[:,0:5]
-y=dataset[:,5]
+X=dataset[:,0:159]
+y=dataset[:,159]
 
 
 # X=dataset.iloc[:,0:10].values
@@ -130,8 +132,8 @@ n.model.summary()
 # X_train = np.asarray(X_train).astype(np.float32)
 # y_train = np.asarray(y_train).astype(np.float32)
 
-history=n.model.fit(X_train, y_train, batch_size=1000, epochs=10)
-
+history=n.model.fit(X_train, y_train, batch_size=1000, epochs=100)
+n.save()
 
 #train test validation 사용할때 수정필요
 #history = n.model.fit(X_train, y_train, epochs=4, batch_size=1000, validation_data=(X_val, y_val))
@@ -153,7 +155,5 @@ print('accuracy', evaluation[1])
 
 #출력값
 
-#position=input("원하는 포지션을 입력하세요 : ")
-#if position=="탑":
-#    champion2,champion3,champion4,champion5=input("미들 정글 서폿 원딜순으로 챔피언을 입려하세요")
+
 #print("hi")
