@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>아군 챔피언</string>
+      </property>
+      <widget class="QComboBox" name="comboBox">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>20</y>
+         <width>94</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>라인 선택</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>탑</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>정글</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>미드</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>원딜</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>서폿</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="comboBox_2">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>60</y>
+         <width>94</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>라인 선택</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>탑</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>정글</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>미드</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>원딜</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>서폿</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="comboBox_3">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>100</y>
+         <width>94</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>라인 선택</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>탑</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>정글</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>미드</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>원딜</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>서폿</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="comboBox_4">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>140</y>
+         <width>94</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>라인 선택</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>탑</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>정글</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>미드</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>원딜</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>서폿</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="comboBox_5">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>190</y>
+         <width>94</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>라인 선택</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>탑</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>정글</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>미드</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>원딜</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>서폿</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>챔피언 입력창</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>챔피언 입력창</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>챔피언 입력창</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>챔피언 입력창</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>내 챔피언</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton">
+       <property name="geometry">
+        <rect>
+         <x>580</x>
+         <y>270</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>추천받기</string>
+       </property>
+      </widget>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>20</y>
+         <width>401</width>
+         <height>211</height>
+        </rect>
+       </property>
+       <column>
+        <property name="text">
+         <string>챔피언</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>승률</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>픽률</string>
+        </property>
+       </column>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -21,23 +21,6 @@ from keras.layers import Dense, Activation
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-class BaseModel(ABC):
-    @abstractmethod
-    def __init__(self):
-        pass
-
-    @abstractmethod
-    def build(self):
-        pass
-
-
-
-
-# Training/Testing accuracy:
-# games=145358, options=(BR_Mode, 1, 256, 0.3): 0.5458/0.5321
-# games=145358, options=(BR_Mode, 2, 128, 0.2): 0.5427/0.5330
-# games=145358, options=(BR_Mode, 2, 256, 0.3): 0.5420/0.5332
-# games=145358, options=(BR_Mode, 2, 512, 0.5): 0.5405/0.5312
 
 
 # Training/Testing accuracy:
@@ -47,7 +30,7 @@ class BaseModel(ABC):
 # games=148883, options=(ABOTJMCS_Mode, 3, 512, 0.2): 0.5274/0.5297
 # games=148883, options=(ABOTJMCS_Mode, 3, 1024, 0.3): 0.5274/0.5257
 # games=148883, options=(ABOTJMCS_Mode, 3, 1024, 0.1): 0.5313/0.5262
-class DenseDegressive(BaseModel):
+class DenseDegressive():
     def __init__(self, Xlist, ylist,n_hidden_layers, NN, dropout, batch_size=1000, epochs=10):
         self.Xlist=Xlist
         self.ylist=ylist
@@ -145,7 +128,8 @@ for X in range(0, 20):
     random_index = random.randint(0, X_test.shape[0]-1)
     print("index: ", random_index,
           "actual y: ", y_test[random_index],
-          "predicted y: ", y_predicted[random_index])
+          "predicted y: ", y_predicted[random_index],
+          "조합: ", X_test[random_index] )
 
 # evaluate test set
 evaluation = n.model.evaluate(X_test, y_test)
