@@ -60,7 +60,7 @@ class DenseDegressive():
 
 #dataset1=pd.read_json('./input_ohe_df.json', orient='table')
 #print(dataset1)_
-'''
+
 dataset=input_onehot.q()
 
 X=dataset[:,0:159]
@@ -70,7 +70,8 @@ y=dataset[:,159]
 
 
 X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.3, random_state=1)
-
+print(X_test)
+'''
 
 #spitting the dataset into the Training set and Test set
 #X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.3, random_state=1)
