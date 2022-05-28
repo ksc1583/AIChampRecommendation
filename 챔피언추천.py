@@ -162,7 +162,7 @@ class Ui_MainWindow(object):
 
 
     def btn_clicked(self):
-        
+        #입력받은 데이터 이름과 번호 맞추기
         with open('./champion.json', 'r') as f: #mat 불러오기
             champ_list = json.load(f)
         allplayer=np.zeros(159)
@@ -171,6 +171,7 @@ class Ui_MainWindow(object):
         player3=self.lineEdit_3.text()  
         player4=self.lineEdit_4.text()      
     
+        # 4번째 입력 챔피언으로 데이터비교
         for i in range(len(champ_list)):
             if champ_list[i]["name"]==player4:
                 allplayer[i]=1
@@ -182,6 +183,7 @@ class Ui_MainWindow(object):
             #if champ_list[i]["name"]==player4:
             #    allplayer[i]=1
         
+        #모델형식에 맞게 데이터변환
         allplayertest=np.zeros(159)
         allplayertest=allplayer[:]   
         allplayertestdata=[]
@@ -212,18 +214,19 @@ class Ui_MainWindow(object):
        
         yhat=model.predict(X)
         
+        #값이 너무 작아 키워서 정수처리
         yhat=1000000000*yhat
-        #yhat=yhat.astype(int)
-        yhat=np.trunc(yhat)
+        yhat=yhat.astype(int)
         print(yhat)
         champion1=[]
         result=[]
+        # 만점이고 입력값이 아니면 출력
         for j in range(len(champ_list)):
             if yhat[j]==1000000000 and (champ_list[j]["name"]!=player1 and champ_list[j]["name"]!=player2 and champ_list[j]["name"]!=player3 and champ_list[j]["name"]!=player4):
                 champion1=champ_list[j]["name"]
                 print(champion1)
                 result.append(champion1)
-                
+        #결과를 리스트로 보여줌        
         self.textEdit.setText(str(result))        
         
         #champion_1=champ_list[sort_index[0]]["name"]
