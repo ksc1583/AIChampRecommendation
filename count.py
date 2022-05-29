@@ -5,7 +5,6 @@ import json
 import random
 import keras
 import sklearn
-from abc import ABC, abstractmethod
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
