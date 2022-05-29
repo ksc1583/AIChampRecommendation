@@ -238,7 +238,7 @@ class Ui_MainWindow(object):
             elif champ_list[m]["name"]==player4:
                 yhat[m]=0  
                           
-        #값이   너무 작아 키워서 정수처리
+        #값이 너무 작아 키워서 정수처리후 계산
         yhat=1000000000*yhat
         yhat=yhat.astype(int)
         y=yhat.reshape(-1,)

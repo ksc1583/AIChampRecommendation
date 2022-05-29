@@ -20,15 +20,6 @@ from keras.layers import Dense, Activation
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-
-
-# Training/Testing accuracy:
-# games=145358, options=(BR_Mode, 3, 256, 0.3): 0.5371/0.5327
-# games=145358, options=(BR_Mode, 3, 512, 0.3): 0.5319/0.5317
-# games=148883 , options=(ABOTJMCS_Mode, 4, 512, 0.0): 0.5302/0.5272
-# games=148883, options=(ABOTJMCS_Mode, 3, 512, 0.2): 0.5274/0.5297
-# games=148883, options=(ABOTJMCS_Mode, 3, 1024, 0.3): 0.5274/0.5257
-# games=148883, options=(ABOTJMCS_Mode, 3, 1024, 0.1): 0.5313/0.5262
 class DenseDegressive():
     def __init__(self, Xlist, ylist,n_hidden_layers, NN, dropout, batch_size=1000, epochs=10):
         self.Xlist=Xlist
@@ -56,11 +47,7 @@ class DenseDegressive():
     def save(self):
         self.model.save('lol_model.h5')
 
-#importing Categorical data
-
-#dataset1=pd.read_json('./input_ohe_df.json', orient='table')
-#print(dataset1)_
-
+#
 dataset=input_onehot.q()
 
 X=dataset[:,0:159]

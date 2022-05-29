@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import json
 import random
 import numpy as np
@@ -40,41 +37,17 @@ winList=np.reshape(winList,(-1,1))
 winList.shape
 
 
-# In[7]:
-
-
 finalList = np.concatenate((bottomDuoList, winList), axis=1)
-
-
-# In[8]:
 
 
 finalList
 
 
-# model
-
-# In[9]:
-
-
-from abc import ABC, abstractmethod
 from sklearn.model_selection import train_test_split
 import keras
 
 
-# In[10]:
-
-
-class BaseModel(ABC):
-    @abstractmethod
-    def __init__(self):
-        pass
-
-    @abstractmethod
-    def build(self):
-        pass
-    
-class DenseDegressive(BaseModel):
+class DenseDegressive():
     def __init__(self, Xlist, ylist,n_hidden_layers, NN, dropout, batch_size=1000, epochs=10):
         self.Xlist=Xlist
         self.ylist=ylist
