@@ -175,6 +175,7 @@ class Ui_MainWindow(object):
         for i in range(len(champ_list)):
             if champ_list[i]["name"]==player4:
                 allplayer[i]=1
+                n=i
             
             #if champ_list[i]["name"]==player2:
             #    allplayer[i]=1    
@@ -188,6 +189,8 @@ class Ui_MainWindow(object):
         allplayertest=allplayer[:]   
         allplayertestdata=[]
         model = load_model('bottom_duo_model.h5')
+        
+      
         
         for i in range(len(champ_list)):
             line=[]
@@ -214,18 +217,48 @@ class Ui_MainWindow(object):
        
         yhat=model.predict(X)
         
-        #값이 너무 작아 키워서 정수처리
+    
+        #for k in range(len(champ_list)):
+        #    if "Support" in champ_list[k]["tags"]:
+        #        print(champ_list[k]["name"])
+        for k in range(len(champ_list)):
+            if "Support" in champ_list[n]["tags"]:
+                if not "Markman" in champ_list[k]["tags"]:
+                    yhat[k]=0
+            elif "Marksman" in champ_list[n]["tags"]:
+                if not "Support" in champ_list[k]["tags"]:
+                    yhat[k]=0
+        for m in range(len(champ_list)):
+            if champ_list[m]["name"]==player1:
+                yhat[m]=0
+            elif champ_list[m]["name"]==player2:
+                yhat[m]=0
+            elif champ_list[m]["name"]==player3:
+                yhat[m]=0
+            elif champ_list[m]["name"]==player4:
+                yhat[m]=0  
+                          
+        #값이   너무 작아 키워서 정수처리
         yhat=1000000000*yhat
         yhat=yhat.astype(int)
-        print(yhat)
+        y=yhat.reshape(-1,)
+        sorted_list=np.argsort(y)[::-1]
         champion1=[]
         result=[]
+       
+        for j in range(3):
+            champion1=champ_list[sorted_list[j]]["name"]
+            result.append(champion1)
+           
+        '''
         # 만점이고 입력값이 아니면 출력
         for j in range(len(champ_list)):
             if yhat[j]==1000000000 and (champ_list[j]["name"]!=player1 and champ_list[j]["name"]!=player2 and champ_list[j]["name"]!=player3 and champ_list[j]["name"]!=player4):
                 champion1=champ_list[j]["name"]
                 print(champion1)
                 result.append(champion1)
+        '''
+        
         #결과를 리스트로 보여줌        
         self.textEdit.setText(str(result))        
         
@@ -233,7 +266,7 @@ class Ui_MainWindow(object):
         #champion_2=champ_list[sort_index[1]]["name"]
         #champion_3=champ_list[sort_index[2]]["name"] 
         #print(champion_1,champion_2,champion_3) 
-
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
